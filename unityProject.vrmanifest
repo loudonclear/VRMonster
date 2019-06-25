@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.vrmonster.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\Loudon\\Desktop\\Projects\\VRMonster\\actions.json",
+      "action_manifest_path": "C:\\Users\\avd\\Desktop\\VRMonster\\actions.json",
       "strings": {
         "en_us": {
           "name": "VRMonster [Testing]"
