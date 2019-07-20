@@ -6,13 +6,16 @@ using Valve.VR;
 
 public abstract class Power : MonoBehaviour
 {
+
+    protected Transform ControllerTransform;
     protected SteamVR_Action_Pose ControllerPose;
     protected SteamVR_Input_Sources InputSource;
 
     private bool active = false;
 
-    public void Initialize(SteamVR_Action_Pose controllerPose, SteamVR_Input_Sources inputSource)
+    public void Initialize(Transform controllerTransform, SteamVR_Action_Pose controllerPose, SteamVR_Input_Sources inputSource)
     {
+        ControllerTransform = controllerTransform;
         ControllerPose = controllerPose;
         InputSource = inputSource;
     }

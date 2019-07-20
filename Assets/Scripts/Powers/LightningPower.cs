@@ -16,9 +16,9 @@ public class LightningPower : Power
     {
         base.TriggerDown();
 
-        Vector3 pos = ControllerPose.GetLocalPosition(InputSource);
-        pos.y = 0f;
-        Quaternion rot = ControllerPose.GetLocalRotation(InputSource);
+        Vector3 pos = ControllerTransform.position;
+        pos.y = 0.01f;
+        Quaternion rot = Quaternion.LookRotation(Vector3.up, Vector3.forward);
         groundMarker = Instantiate(Resources.Load("HitMarker"), pos, rot) as GameObject;
     }
 
@@ -32,6 +32,8 @@ public class LightningPower : Power
         GameObject lightning = Instantiate(Resources.Load("Meteor"), pos, rot) as GameObject;
         lightning.GetComponent<Meteor>().SetActive();
         lightning.GetComponent<Rigidbody>().velocity = new Vector3(0f, -10f, 0f);
+
+        Destroy(groundMarker);
     }
 
     public override void UpdateControllerState()
@@ -43,7 +45,7 @@ public class LightningPower : Power
     {
         Vector2 trackpadDir = currentPos - lastPos;
         //IF DOESN'T WORK, TRY DIFFERENT ANGLE.
-        trackpadDir = rotateVector(trackpadDir, transform.eulerAngles.y);
+        trackpadDir = rotateVector(trackpadDir, ControllerTransform.eulerAngles.y);
 
         Vector3 newPos = groundMarker.transform.position;
         newPos.x += 3 * trackpadDir.x;
