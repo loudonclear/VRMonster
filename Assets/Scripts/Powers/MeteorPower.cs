@@ -17,9 +17,10 @@ public class MeteorPower : Power
     public override void TriggerDown()
     {
         base.TriggerDown();
-        Vector3 pos = ControllerPose.GetLocalPosition(InputSource);
-        Quaternion rot = ControllerPose.GetLocalRotation(InputSource);
+        Vector3 pos = ControllerTransform.position;
+        Quaternion rot = ControllerTransform.rotation;
         meteorObj = Instantiate(Resources.Load("Meteor"), pos, rot) as GameObject;
+        meteorObj.GetComponent<Meteor>().SetUnactive();
     }
 
     public override void TriggerUp()
@@ -31,7 +32,8 @@ public class MeteorPower : Power
 
     public override void UpdateControllerState()
     {
-        meteorObj.transform.position = transform.position;
+        meteorObj.transform.position = ControllerTransform.position;
+        meteorObj.transform.rotation = ControllerTransform.rotation;
     }
 
     public override void UpdateTouchpad(Vector2 currentPos, Vector2 lastPos)

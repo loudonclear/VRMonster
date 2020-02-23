@@ -20,8 +20,8 @@ public class InputController : MonoBehaviour
 
     private float gripTimer = 0f;
     
-    private Power activePower;
-    private bool isActive = false;
+    private Power selectedPower;
+    private bool powerActive = false;
     enum POWER
     {
         METEOR,
@@ -29,20 +29,23 @@ public class InputController : MonoBehaviour
     }
     private POWER powerIndex;
 
+    private GameObject menu;
+    private bool menuActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        powerIndex = POWER.LIGHTNING;
         switch(powerIndex)
         {
             case POWER.METEOR:
-                activePower = new MeteorPower();
+                selectedPower = new MeteorPower();
                 break;
             case POWER.LIGHTNING:
-                activePower = new LightningPower();
+                selectedPower = new LightningPower();
                 break;
         }
-        activePower.Initialize(ControllerPose, InputSource);
+        selectedPower.Initialize(transform, ControllerPose, InputSource);
     }
 
     // Update is called once per frame
@@ -50,19 +53,31 @@ public class InputController : MonoBehaviour
     {
         if(TriggerPress.GetStateDown(InputSource))
         {
-            activePower.TriggerDown();
-            isActive = true;
+            selectedPower.TriggerDown();
+            powerActive = true;
         }
         if(TriggerPress.GetStateUp(InputSource))
         {
-            activePower.TriggerUp();
-            isActive = false;
+            selectedPower.TriggerUp();
+            powerActive = false;
         }
         
 
-        if(PadPress.GetStateDown(InputSource))
+        if(PadPress.GetStateDown(InputSource) && !powerActive)
         {
-            Debug.Log("Pad");
+            //Open power select menu
+            Destroy(GetComponent<Power>());
+            if(powerIndex == POWER.METEOR)
+            {
+                selectedPower = new LightningPower();
+                powerIndex = POWER.LIGHTNING;
+            }
+            else
+            {
+                selectedPower = new MeteorPower();
+                powerIndex = POWER.METEOR;
+            }
+            selectedPower.Initialize(transform, ControllerPose, InputSource);
         }
 
         if(GripPress.GetStateDown(InputSource))
@@ -81,10 +96,15 @@ public class InputController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isActive)
+        if(powerActive)
         {
-            activePower.UpdateControllerState();
-            activePower.UpdateTouchpad(SteamVR_Actions._default.Trackpad.GetAxis(InputSource), SteamVR_Actions._default.Trackpad.GetLastAxis(InputSource));
+            selectedPower.UpdateControllerState();
+            if (SteamVR_Actions._default.TrackpadTouch.GetState(InputSource) && SteamVR_Actions._default.TrackpadTouch.GetLastState(InputSource))
+            {
+                selectedPower.UpdateTouchpad(SteamVR_Actions._default.Trackpad.GetAxis(InputSource), SteamVR_Actions._default.Trackpad.GetLastAxis(InputSource));
+            }
         }
+
+
     }
 }

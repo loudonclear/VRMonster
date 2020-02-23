@@ -5,19 +5,15 @@ using UnityEngine;
 public class Meteor : MonoBehaviour
 {
 
-    private Rigidbody rigid;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetActive()
     {
-        rigid = GetComponent<Rigidbody>();
-        rigid.useGravity = false;
+        GetComponent<Rigidbody>().useGravity = true;
         Invoke("Despawn", 10f);
     }
 
-    public void SetActive()
+    public void SetUnactive()
     {
-        rigid.useGravity = true;
+        GetComponent<Rigidbody>().useGravity = false;
     }
 
     private void Despawn()
