@@ -35,7 +35,7 @@ public class DestructorTest : MonoBehaviour
 
     private void SpawnMeteor2()
     {
-        GameObject meteor = Instantiate(Resources.Load("Meteor"), new Vector3(10f, 3f, 0f), Quaternion.identity) as GameObject;
+        GameObject meteor = Instantiate(Resources.Load("Meteor"), new Vector3(-10f, 3f, 0f), Quaternion.identity) as GameObject;
         meteor.GetComponent<Meteor>().SetActive();
         meteor.GetComponent<Rigidbody>().velocity = new Vector3(15f, Random.Range(0f, 5f), Random.Range(-1f, 1f));
     }

@@ -42,6 +42,5 @@ public class DestructibleBuilding : MonoBehaviour
                 piece.GetComponent<BuildingComponent>().Break();
             }
         }
-        
     }
 }
