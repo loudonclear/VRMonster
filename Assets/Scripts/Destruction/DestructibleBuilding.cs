@@ -33,7 +33,7 @@ public class DestructibleBuilding : MonoBehaviour
         {
             collisionObjectCheck.Add(col.gameObject);
 
-            float sphereRadius = col.relativeVelocity.magnitude * BreakMultiplier;
+            float sphereRadius = col.relativeVelocity.magnitude / RequiredForce * BreakMultiplier;
             Collider[] pieces = Physics.OverlapSphere(col.contacts[0].point, sphereRadius, LayerMask.GetMask("BuildingComponent"));
 
             foreach(Collider piece in pieces)

@@ -28,6 +28,7 @@ public class MeteorPower : Power
         base.TriggerUp();
         meteorObj.GetComponent<Meteor>().SetActive();
         meteorObj.GetComponent<Rigidbody>().velocity = 5f * ControllerPose.GetVelocity(InputSource);
+        Debug.Log(ControllerPose.GetVelocity(InputSource));
     }
 
     public override void UpdateControllerState()

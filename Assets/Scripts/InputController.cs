@@ -89,7 +89,7 @@ public class InputController : MonoBehaviour
             gripTimer += Time.deltaTime;
             if(gripTimer > 2f)
             {
-                SceneManager.LoadScene("PowerTest");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }

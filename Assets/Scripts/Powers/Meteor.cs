@@ -7,13 +7,13 @@ public class Meteor : MonoBehaviour
 
     public void SetActive()
     {
-        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().isKinematic = false;
         Invoke("Despawn", 10f);
     }
 
     public void SetUnactive()
     {
-        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 
     private void Despawn()
