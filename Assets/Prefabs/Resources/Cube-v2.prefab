@@ -111,7 +111,7 @@ MonoBehaviour:
   firstXDim: 3
   firstYDim: 5
   firstZDim: 3
-  minSize: 0.5
+  minSize: 0.125
   RequiredForce: 10
   BreakMultiplier: 1
 --- !u!54 &-4905186004618052551
